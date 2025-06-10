@@ -1,0 +1,196 @@
+/* margin: 4rem auto;  vertical horizontal, auto centra en horizontal*/
+/* CSS */
+.color-1 {
+  color: #e1c6d2;
+}
+.color-2 {
+  color: #f3e5f5;
+}
+.color-3 {
+  color: #c8d8e4;
+}
+.color-4 {
+  color: #90a7c6;
+}
+.color-5 {
+  color: #4f7d92;
+}
+
+/* CSS Variables */
+:root {
+  --color-1: #e1c6d2;
+  --color-2: #f3e5f5;
+  --color-3: #c8d8e4;
+  --color-4: #90a7c6;
+  --color-5: #4f7d92;
+}
+
+body{
+  font-family: 'Montserrat';
+  background-color: var(--color-3);
+}
+
+#app {
+  margin: 2rem;
+  /*width:@ 30%;*/
+}
+
+label {
+  font-weight: bold;
+  /*width: 50%;*/
+}
+
+ul {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0; /* se alinea con el resto de controles */
+}
+
+li {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 3px solid rgb(204, 204, 204);
+}
+
+
+.box{
+  border: 1px solid black;
+  padding: 10px;
+  align-items: stretch;
+  gap: 10px;
+  width: clamp(768px, 100%, 900px);
+  background-color: white;
+}
+
+label {
+  width: 100%;
+  white-space: nowrap; /*evitar salt de línea */
+}
+
+.titulo{
+  display: flex;
+}
+.efect{
+  background-color:var(--color-4);
+  width: 100%;
+  border:0px;
+
+}
+.efect:hover {
+  transform: perspective(250px) translateY(3px) rotateY(1deg);
+}
+
+.input > div {
+  width: 100%;
+}
+
+.box > div {
+  width: 100%;
+}
+
+.box button {
+  grid-column: 1 / -1;
+  margin-top: 10px;
+}
+
+.sticky-header{
+  position: sticky;
+  top: 0px;
+  background-color: var(--color-3);
+}
+
+
+.label > div {
+  color: white;
+}
+
+@media(max-width: 678px){
+  table, th, td {
+    width: 100%;
+  }
+  .box{
+    width: 100%;
+  }
+  .div{
+    width: 100%;
+  }
+  select,label, input{
+    width: 100%;
+  }
+}
+
+.iframe_2{
+  width:100%;
+  height:90%;
+  border:none;
+}
+
+.dialog {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;      /*  elimina padding */
+  border: none;    /* treu el border per fer-lo més net */
+  border-radius: 0; /* Sense corbes */
+  position:fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+}
+
+td {
+  background-color: var(--color-fons, white);
+}
+
+
+.cella:hover {
+  background-color: lightgray;
+}
+
+:root {
+  --color-fons: #ffffff;
+}
+
+.bg-dinamica {
+  background-color: var(--color-fons, yellow);
+}
+
+
+table {
+  border-collapse: collapse;
+  display:table;
+  width: 100%;
+  margin-top: 20px;
+  background-color: var(--color-3);
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  height: 20%;
+  background-color: var(--color-3);
+}
+
+th {
+  color: black;
+}
+
+.cella {
+  padding: 8px;
+  border: 1px solid gray;
+  text-align: center;
+  vertical-align: middle;
+  --color-fons: white;
+  background-color: var(--color-fons);
+  transition: background-color 0.2s;
+}
+
+.cella.selected {
+  background-color: var(--color-2);
+}
+
+.cella.selected {
+  background-color: var(--color-1);
+}

@@ -1,0 +1,50 @@
+/* margin: 4rem auto;  vertical horizontal, auto centra en horizontal*/
+/* CSS */
+.color-1 {
+    color: #e1c6d2;
+}
+.color-2 {
+    color: #f3e5f5;
+}
+.color-3 {
+    color: #c8d8e4;
+}
+.color-4 {
+    color: #90a7c6;
+}
+.color-5 {
+    color: #4f7d92;
+}
+
+/* CSS Variables */
+:root {
+    --color-1: #e1c6d2;
+    --color-2: #f3e5f5;
+    --color-3: #c8d8e4;
+    --color-4: #90a7c6;
+    --color-5: #4f7d92;
+}
+
+body{
+    background-color: var(--color-3);
+    font-family: "Century Gothic";
+}
+
+table {
+    border-collapse: collapse;
+    display:table;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    height: 20%;
+}
+
+th {
+    background-color: #f2f2f2;
+    color: black;
+}
+

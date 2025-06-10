@@ -1,0 +1,153 @@
+
+:root {
+  /* Light mode colors */
+  --bg-page: #c8d8e4;        /* fondo general*/
+  --bg-header: #f5e8e5;      /* cabecera sticky (antes var(--color-2)) */
+  --bg-hour-col: #90a7c6;    /* columna de horas (antes var(--color-4)) */
+  --bg-fondo: #ffffff;       /* celdas por defecto (antes var(--color-fons)) */
+  --btn-success: #4f7d92;    /* botón éxito (antes var(--color-5)) */
+  --btn-primary: #e1c6d2;    /* botón primario (antes var(--color-1)) */
+  --text-primary: #333333;   /* texto general */
+  --text-hour-col: #ffffff;  /* texto en columna de horas */
+}
+
+/* Dark mode overrides */
+.dark {
+  --bg-page: #2b2b2b;
+  --bg-header: #1f1f1f;
+  --bg-hour-col: #3a3a3a;
+  --bg-fondo:    #505050;
+  --btn-success: #005f73;
+  --btn-primary: #0a9396;
+  --text-primary: #eeeeee;
+  --text-hour-col: #ffffff;
+}
+
+/* Global styles */
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  margin: 2rem auto;
+  width: 95%;        /* ocupa el 95% de l'amplada de la finestra */
+  padding: 0 1rem;
+}
+
+/* Table container */
+.table-container {
+  overflow-x: auto;
+  margin-top: 1rem;
+  width: 100%;       /* assegura que la taula pugui expandir-se */
+}
+
+/* Sticky header */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--bg-header);
+  z-index: 1000;
+  padding: 1rem 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.export-form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+/* Header row styling */
+.table thead th {
+  background-color: var(--bg-header);
+  color: var(--text-primary);
+  border: 1px solid #dee2e6;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+/* Hour column styling */
+.table tbody th,
+.table tbody td:first-child {
+  background-color: var(--bg-hour-col);
+  color: var(--text-hour-col);
+  border: 1px solid #dee2e6;
+  padding: 0.75rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Cell styling */
+.table tbody td {
+  border: 1px solid #dee2e6;
+  padding: 0.75rem;
+  vertical-align: top;
+  background-color: var(--bg-fondo);
+  color: var(--text-primary);
+}
+
+/* Hide merged cells */
+.cella-oculta {
+  display: none;
+}
+
+/* Franja styling */
+.franja-horaria {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0.5rem;
+}
+
+.assignatura-nom {
+  font-weight: bold;
+  color: #000 !important;
+}
+
+/* Buttons */
+.btn-success {
+  background-color: var(--btn-success);
+  border-color: var(--btn-success);
+  color: #fff;
+}
+
+.btn-success:hover {
+  background-color: var(--bg-hour-col);
+  border-color: var(--bg-hour-col);
+}
+
+.btn-primary {
+  background-color: var(--btn-primary);
+  border-color: var(--btn-primary);
+  color: var(--text-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--bg-header);
+  border-color: var(--bg-header);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .export-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .table thead th,
+  .table tbody td,
+  .table tbody th {
+    padding: 0.5rem;
+  }
+}

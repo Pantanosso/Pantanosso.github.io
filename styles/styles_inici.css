@@ -1,0 +1,248 @@
+/* CSS */
+.color-1 {
+    color: #e1c6d2;
+}
+.color-2 {
+    color: #f3e5f5;
+}
+.color-3 {
+    color: #c8d8e4;
+}
+.color-4 {
+    color: #90a7c6;
+}
+.color-5 {
+    color: #4f7d92;
+}
+
+/* CSS Variables */
+:root {
+    --color-1: #e1c6d2;
+    --color-2: #f3e5f5;
+    --color-3: #c8d8e4;
+    --color-4: #90a7c6;
+    --color-5: #4f7d92;
+}
+
+body {
+
+    background-color: var(--color-3);
+    display: grid;
+    color: var(--color-5);
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Assegura que ocupa tota la pantalla vertical */
+    margin: 0; /* Elimina marges per defecte del body */
+    font-family: "Century Gothic";
+
+}
+
+
+.blocks{
+    background-color: var(--color-3);
+    display: flex;
+    column-gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin: 0; /* Elimina marges per defecte del body */
+    padding: 0px;
+    font-family: "Century Gothic"; /* Tipografia bàsica */
+}
+
+.logo{
+    border-radius: 60px;
+    height: 250px;
+}
+
+.box {
+    position: relative;
+    background-color: var(--color-2);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    color: var(--color-5);
+    font-size: 1.5rem;
+}
+
+.box::before,
+.box::after {
+    content: '';
+    position: absolute;
+    height: 4px;
+    width: 200%;
+    background: radial-gradient(circle, #4a7c8c, #57a6b2, #6dd3d5, #f5e67f, #f6a35a);
+    z-index: 1;
+}
+
+
+.box::before {
+    content: '';
+    position: absolute;
+    animation: slideOneSide 4s linear infinite;
+}
+
+.box::after {
+    content: '';
+    position: absolute;
+    animation: slideOtherSide 4s linear infinite;
+}
+
+@keyframes slideOneSide {
+    0% {
+        width: 200%;
+        height: 4px;
+        top: -2px;
+        left: -100%;
+    }
+    48% {
+        width: 200%;
+        height: 4px;
+        top: -2px;
+        left: 100%;
+    }
+    49% {
+        width: 4px;
+        height: 200%;
+        right: -2px;
+        top: -100%;
+    }
+    100% {
+        width: 4px;
+        height: 200%;
+        right: -2px;
+        top: 100%;
+    }
+}
+
+@keyframes slideOtherSide {
+    0% {
+        width: 200%;
+        height: 4px;
+        bottom: -2px;
+        left: 100%;
+    }
+    48% {
+        width: 200%;
+        height: 4px;
+        bottom: -2px;
+        left: -100%;
+    }
+    49% {
+        width: 4px;
+        height: 200%;
+        left:-2px;
+        top: 100%;
+    }
+    100% {
+        width: 4px;
+        height: 200%;
+        left: -2px;
+        top: -100%;
+    }
+}
+
+
+.loginBx {
+    text-align: center; /* Centra el contingut interior */
+    background-color: var(--color-3);
+    border: 2px solid #0000;       /* línia de contorn com un marc */
+    border-radius: 12px;              /* cantonades arrodonides */
+}
+
+
+h2 {
+    color: var(--color-5); /* Color del títol */
+    margin-bottom: 20px; /* Espai sota el títol */
+    display: flex;
+    justify-content: center; /* Centra els elements inline dins del h2 */
+    align-items: center; /* Alinea verticalment els elements dins del h2 */
+}
+
+h2 i {
+    margin: 0 10px; /* Espai entre la icona i el text */
+    color: #ff79c6; /* Color de les icones */
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"]{
+    background-color: var(--color-5); /* Color de fons dels inputs */
+    color: #f8f8f2; /* Color del text dels inputs */
+    border: none; /* Elimina la vora per defecte */
+    border-radius: 5px; /* Vores arrodonides dels inputs */
+    padding: 10px 15px; /* Espai interior dels inputs */
+    margin-bottom: 15px; /* Espai sota els inputs */
+    width: 80%; /* Amplada dels inputs */
+    box-sizing: border-box; /* Inclou el padding i la vora en l'amplada */
+    display: none;
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder,
+input[type="email"]::placeholder{
+    color: var(--color-2); /* Color del placeholder */
+}
+
+input[type="submit"] {
+    background-color: #8be9fd; /* Color del botó */
+    color: #282a36; /* Color del text del botó */
+    border: none; /* Elimina la vora del botó */
+    border-radius: 5px; /* Vores arrodonides del botó */
+    padding: 12px 20px; /* Espai interior del botó */
+    cursor: pointer; /* Canvia el cursor al passar-hi per sobre */
+    font-weight: bold; /* Text del botó en negreta */
+    width: 80%; /* Amplada del botó */
+    display: none;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--color-4); /* Canvia el color al passar-hi per sobre */
+    color: #f8f8f2;
+    display: inline-block;
+}
+
+.group {
+    margin-top: 20px; /* Espai sobre els enllaços */
+    display: flex;
+    justify-content: space-between; /* Separa els enllaços */
+    color: #f8f8f2; /* Color dels enllaços */
+}
+
+.group a {
+    color: #f8f8f2; /* Color dels enllaços */
+    text-decoration: none; /* Elimina el subratllat per defecte */
+    font-size: 0.9em; /* Mida de la font dels enllaços */
+    display: none;
+}
+.group a:hover {
+    text-decoration: underline; /* Subratlla al passar-hi per sobre */
+    color: #ff79c6; /* Canvia el color al passar-hi per sobre */
+}
+
+.box br{
+    display: none;
+}
+.box:hover br{
+    display: inline-block;
+}
+
+.box i {
+    display: none; /* Amaguem els <i> inicialment */
+}
+
+.box:hover i {
+    display: inline-block; /* Quan fem hover sobre el .box, mostrem els <i> */
+}
+
+input,
+.group a {
+    display: none;
+
+}
+.box:hover input,
+.box:hover .group a {
+    display: inline-block;
+}
+
