@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menú Principal</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles/styles_menu.css" />
+    <style>
+        #pagewide_txt {
+            color: #2c3e50; /* Color más oscuro para mejor contraste */
+            background-color: #f9f9f9;
+            font-size: 14px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #3b5966;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+<!-- Enlace para saltar al contenido -->
+
+
+<header role="banner" aria-label="Capçalera principal">
+
+    <h1 class="titol">Menú</h1>
+</header>
+
+<main id="main" role="main" aria-label="Contingut principal del menú">
+    <div class="box">
+        <img src="imatges/mussol.jpeg" class="mussol" alt="Logo del lloc: mussol estilitzat" />
+
+        <nav role="navigation" aria-label="Menú principal">
+            <div class="second" role="group" aria-label="Accions principals del menú">
+                <button class="btn btn-lg btn-menu1"
+                        aria-label="Crear un nou horari"
+                        onclick="window.location.href='create_horari.html'">
+                    Crear horari
+                </button>
+
+                <button class="btn btn-lg btn-menu"
+                        aria-label="Llistar horaris ja creats"
+                        onclick="window.location.href='llistar_horaris.html'">
+                    Llistar horaris creats
+                </button>
+            </div>
+
+            <div class="first" role="group" aria-label="Acció de tancar sessió">
+                <button class="btn btn-lg btn-log-out"
+                        aria-label="Tancar sessió i tornar a l'inici"
+                        onclick="window.location.href='index.html'">
+                    Tancar sessió
+                </button>
+            </div>
+        </nav>
+    </div>
+</main>
+
+</body>
+</html>

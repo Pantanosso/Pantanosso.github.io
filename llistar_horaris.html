@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Horaris Guardats</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles/styles_llistar_horaris.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <script src="frameworks/horari_base.js" defer></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js" defer></script>
+    <script src="frameworks/llistar_horaris.js" defer></script>
+
+    <style>
+        /* Mejoras de accesibilidad */
+        body {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #2c3e50;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Mejoras de contraste */
+        .btn-volver {
+            background-color: #3b5966;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .btn-volver:hover {
+            background-color: #2c3e50;
+        }
+
+        .table {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .table thead {
+            background-color: #3b5966;
+            color: white;
+        }
+
+        .table th {
+            font-weight: 600;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+
+        .enlace-horario {
+            color: #0056b3; /* Azul más oscuro para mejor contraste */
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .enlace-horario:hover {
+            color: #003d7a;
+            text-decoration: none;
+        }
+
+        .eliminar-link {
+            color: #a30000 !important; /* Rojo más oscuro para mejor contraste */
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: 10px;
+            text-decoration: underline;
+        }
+
+        .eliminar-link:hover {
+            color: #7a0000 !important;
+            text-decoration: none;
+        }
+
+        /* Estilo para encabezados */
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3b5966;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Enlace para saltar al contenido -->
+<a href="#main-content" class="skip-link">Saltar al contingut principal</a>
+
+<header role="banner" aria-label="Capçalera de la pàgina">
+    <button class="btn-volver" onclick="window.location.href='menu.html'">
+        Torna a menú inici
+    </button>
+</header>
+
+<main id="main-content" role="main" aria-label="Llista d'horaris guardats">
+    <div class="main-container">
+        <h1>Horaris Guardats</h1>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Nom horari</th>
+                <th scope="col">Obrir</th>
+                <th scope="col">Accions</th>
+            </tr>
+            </thead>
+            <tbody id="app">
+            <tr v-for="horari in horaris" :key="horari.id">
+                <td>{{ horari.nom }}</td>
+                <td>
+                    <a :href="horari.enlace" class="enlace-horario" aria-label="Obrir horari {{ horari.nom }}">
+                        Clica aquí per obrir l'horari
+                    </a>
+                </td>
+                <td>
+                            <span
+                                    @click="eliminarHorari(horari.id)"
+                                    class="eliminar-link"
+                                    title="Eliminar horari"
+                                    aria-label="Eliminar horari {{ horari.nom }}"
+                                    role="button"
+                                    tabindex="0"
+                            >
+                                Eliminar
+                            </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Mensaje cuando no hay horarios -->
+        <div v-if="horaris.length === 0" class="alert alert-info" role="alert">
+            No tens cap horari guardat. Crea un horari nou des del menú principal.
+        </div>
+    </div>
+</main>
+</body>
+</html>

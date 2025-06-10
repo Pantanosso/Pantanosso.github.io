@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ca">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WorkSchedule</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="styles/styles_inici.css" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="frameworks/app_index.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.18/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!--Util per alertes responsives -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"><!-- icones-->
+    <!-- incluyo vue y mi javascript  -->
+  </head>
+  <body>
+  <h1 style="padding: 30px">Benvingut a la teva web de confiança per a crear horaris:</h1>
+  <div style="align-items: center; display: flex; justify-content: center;padding: 0px; margin:0px;">
+    <img src="imatges/logo.png" class="logo"  alt="logo">
+  </div>
+  <div class="blocks">
+    <div class="box" >
+      <div class="login">
+        <div class="loginBx">
+          <h2>
+            Log in
+          </h2>
+          <form action="menu.html">
+            <i class="fa-solid fa-user" ></i>
+            <input type="text" placeholder="Username" required><br>
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" placeholder="Password" v-model="contrasenya" required >
+            <input type="submit" value="Log in">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="app" class="box">
+      <div class="login">
+        <div class="loginBx">
+          <h2>
+            Sign up
+          </h2>
+          <form v-on:submit.prevent="checkSignUp" >
+            <i class="fa-solid fa-user"></i>
+            <input type="text" placeholder="Username" required><br>
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" placeholder="Email" required><br>
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" placeholder="Password" v-model="contrasenya" required><br>
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" placeholder="Repet Password" v-model="contrasenya_conf" required>
+            <input type="submit" value="Sign in" >
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

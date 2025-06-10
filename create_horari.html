@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workschedule</title>
+    <style>
+        /* Estilos para texto accesible */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Mejora de contraste */
+        .btn-primary {
+            background-color: #0056b3 !important;
+            border-color: #004a9c !important;
+        }
+
+        /* Estilo para el botón de volver */
+        .btn-volver {
+            margin-right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .btn-volver:hover {
+            color: #0056b3;
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles/styles_create_horari.css" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.18/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <script src="frameworks/app_create_horari.js" defer></script>
+</head>
+<body>
+<div class="sticky-header" id="taula1">
+    <form>
+        <!-- Botón de volver atrás -->
+        <button class="btn-volver" onclick="window.history.back()" title="Tornar enrere">
+            <i class="fas fa-arrow-circle-left fa-2x" aria-hidden="true"></i>
+            <span class="sr-only">Tornar a la pàgina anterior</span>
+        </button>
+
+        <!-- Selector de exportación corregido -->
+        <label for="exportar-select" class="sr-only">Exportar en</label>
+        <select id="exportar-select"
+                v-model="opcio_selecionada_per_exportar"
+                v-on:change="exportar_horari"
+                style="background-color: lightgray;"
+                aria-label="Format d'exportació">
+            <option>Exportar en</option>
+            <option v-for="opcio in opcions_exportar" :key="opcio">
+                {{ opcio }}
+            </option>
+        </select>
+
+        <i class="fa-solid fa-share-from-square fa-2x" style="color:black" aria-hidden="true"></i>
+
+        <!-- Botón guardar con mejor contraste -->
+        <a>
+            <button type="button"
+                    class="btn btn-primary"
+                    style="position: absolute; right: 0;"
+                    v-on:click="guardar_horari">
+                <i class="fa-solid fa-floppy-disk fa-2x" aria-hidden="true"></i>
+                <span class="sr-only">Icona de desa</span> Guardar horari
+            </button>
+        </a>
+
+        <br />
+        <div class="row box" style="width: 100%;">
+            <div class="col-md-3 col-lg-2">
+                <label for="dia-select">Dia setmana</label><br>
+                <select id="dia-select"
+                        v-model="dia_selected">
+                    <option v-if="dia_selected==='Escull dia'" value="Escull dia">
+                        Escull dia
+                    </option>
+                    <option v-for="dia in dies_setmana" :key="dia">
+                        {{ dia }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-3 col-lg-2">
+                <label for="hora-inici-select">Hora d'inici</label><br>
+                <select id="hora-inici-select"
+                        v-model="hora_inici_selected"
+                        v-on:change="filtrar_hores_inici">
+                    <option v-if="hora_inici_selected=== 'Escull hora'" value="Escull hora">
+                        Escull hora
+                    </option>
+                    <option v-for="hora in llista_hores_inici" :key="hora">
+                        {{ hora }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-3 col-lg-2">
+                <label for="hora-fi-select">Hora final</label><br>
+                <select id="hora-fi-select"
+                        v-model="hora_fi_selected"
+                        v-on:change="filtrar_hores_fi">
+                    <option v-if="hora_fi_selected==='Escull hora'" value="Escull hora">
+                        Escull hora
+                    </option>
+                    <option v-for="hora in llista_hores_fi" :key="hora">
+                        {{ hora }}
+                    </option>
+                </select>
+            </div>
+
+            <!-- Input de asignatura con etiqueta accesible -->
+            <div class="col-md-3 col-lg-2">
+                <label for="assignatura-input">Assignatura</label><br>
+                <input id="assignatura-input"
+                       style="width:125px;"
+                       v-model="assignatura_selected"
+                       placeholder="Introdueix assignatura">
+            </div>
+
+            <div class="titulo col-md-3 col-lg-2 d-flex flex-column gap-2">
+                <input type="submit"
+                       value="Afegir franja"
+                       v-on:click="afegir_franja"
+                       class="btn btn-primary">
+                <br><br>
+                <input type="submit"
+                       title="Posa els valors per defecte"
+                       value="Reiniciar paràmetres"
+                       v-on:click="netejar"
+                       class="btn btn-warning">
+            </div>
+        </div>
+
+        <dialog id="myDialog" class="dialog">
+            <iframe id="iframe_dialog" src="editarFranja.html" class="iframe_2"></iframe>
+            <button v-on:click="tancarDialog">Tancar</button>
+            <button v-on:click="eliminar">Eliminar Franja</button>
+        </dialog>
+    </form>
+</div>
+
+<div id="taula2" style="width: 100%;">
+    <table class="table table-condensed table-bordered table-hover" style="width: 100%;">
+        <tr>
+            <th>Hora</th>
+            <th v-for="dia in dies_setmana"
+                :key="dia"
+                :rowspan="1">
+                {{dia}}
+            </th>
+        </tr>
+        <tr id="horaris" v-for="hora in llista_hores" :key="hora">
+            <td>
+                {{hora}}
+            </td>
+            <td v-for="ele in horari_franja_per_h[hora]"
+                :key="dia"
+                :rowspan="1"
+                class="cella"
+                draggable="true">
+                {{ele}}
+            </td>
+        </tr>
+    </table>
+    <a href="#">
+        <button type="button"
+                class="btn btn-danger"
+                v-on:click="eliminar_horari"
+                title="Ull, elimina l'horari sencer">
+            <i class="fa-solid fa-trash fa-2x" aria-hidden="true"></i>
+            <span class="sr-only">Icona d'eliminar</span> Eliminar
+        </button>
+    </a>
+</div>
+</body>
+</html>

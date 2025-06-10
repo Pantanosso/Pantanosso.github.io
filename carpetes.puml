@@ -1,0 +1,17 @@
+
+@startuml
+
+package "WorkSchedule" {
+    package "p4-b2" {
+        folder "frameworks"{
+            file "fit.js"
+        }
+        folder "styles"{
+            file  "fit.css"
+        }
+        file "fit.html"
+
+    }
+}
+
+@enduml

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workschedule</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles/styles_editarFranja.css" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="frameworks/editarFranja.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.18/vue.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f4f8;
+            color: #212529;
+        }
+        .titol {
+            background-color: #1d3557;
+            color: #ffffff;
+            padding: 1rem;
+            font-size: 40px;
+            text-align: center;
+        }
+        .content {
+            padding: 2rem;
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #0056b3 !important;
+            border-color: #0056b3 !important;
+            color: #ffffff !important;
+        }
+        .btn-success {
+            background-color: #1e7e34 !important;
+            border-color: #1e7e34 !important;
+            color: #ffffff !important;
+        }
+        .btn-secondary {
+            background-color: #495057 !important;
+            border-color: #495057 !important;
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <h1 class="titol">
+        <i class="fa-solid fa-pencil" style="color:white;" aria-hidden="true"></i>
+        Editar franja horària
+    </h1>
+</nav>
+<main>
+    <div class="container content" id="app">
+        <div class="form-container">
+            <form>
+                <div class="form-group">
+                    <label for="id_dia_setmana">Dia setmana:</label>
+                    <select id="id_dia_setmana" class="form-control" v-model="dia_setmana" aria-label="Selecciona el dia de la setmana">
+                        <option v-for="dia in ll_dies">{{dia}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="id_hora_inici">Hora inici:</label>
+                    <select id="id_hora_inici" class="form-control" v-model="hora_inici" @change="filtrar_hores_inici" aria-label="Selecciona hora d'inici">
+                        <option v-for="hora in ll_hores_inici" :key="hora">{{hora}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="id_hora_fi">Hora fi:</label>
+                    <select id="id_hora_fi" class="form-control" v-model="hora_fi" @change="filtrar_hores_fi" aria-label="Selecciona hora de fi">
+                        <option v-for="hora in ll_hores_fi" :key="hora">{{hora}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="id_assignatura">Assignatura:</label>
+                    <input id="id_assignatura" type="text" class="form-control" v-model="assignatura" placeholder="Nom de l'assignatura" aria-label="Nom de l'assignatura">
+                </div>
+                <div class="form-group">
+                    <label for="id_color_franja">Selecciona color de la franja:</label>
+                    <input id="id_color_franja" type="color" class="form-control" v-model="color_franja" aria-label="Selecciona color de la franja horària">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" @click="color_franja_assignatura" aria-label="Canviar color de totes les assignatures">
+                        Canviar Color de totes les assignatures
+                    </button>
+                </div>
+                <div class="form-group">
+                    <input id="btnEditar" class="btn btn-success" type="submit" value="Desar" aria-label="Desar franja horària">
+                    <button type="button" class="btn btn-secondary" @click="reiniciar_parametres" aria-label="Reiniciar els paràmetres del formulari">
+                        Reiniciar paràmetres
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <dialog id="myDialog" class="dialog" aria-label="Diàleg per editar assignatura">
+            <div class="row classe_div">
+                <h1>Editar assignatura d'una franja: </h1>
+                <label for="idColorAss">Selecciona un color per la assignatura:</label>
+                <input id="idColorAss" type="color" v-model="color_assignatura_dialog" aria-label="Color de l'assignatura">
+                <label>
+                    Per modificar el color de totes les franges de la mateixa assignatura
+                    <span style="color: red;">cal prémer el botó inferior.</span>
+                </label>
+                <input id="id_canviar_color" type="checkbox" v-model="canviar_color_assignatura" aria-label="Aplicar color a totes les franges de l'assignatura">
+                <button @click="tancarDialog" aria-label="Tancar el diàleg">Tancar</button>
+            </div>
+        </dialog>
+    </div>
+</main>
+</body>
+</html>

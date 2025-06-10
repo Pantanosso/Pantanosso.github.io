@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visualitzar Horari</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles/styles_visualitzar_horari.css" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="frameworks/horari_base.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="frameworks/visualitzar_horari.js" defer></script>
+ 
+</head>
+<body> 
+    <div id="app">
+    <div class="sticky-header" id="taula1">
+        <form>
+            <select v-model="opcio_selecionada_per_exportar"
+                    v-on:change="exportar_horari"
+                    style="background-color: lightgray;">
+                <option>Exportar en</option>
+                <option v-for="opcio in opcions_exportar" :key="opcio">
+                    {{ opcio }}
+                </option>
+            </select>
+
+            <button
+                type="button"
+                class="btn btn-secondary ml-2"
+                @click="toggleDarkMode"
+                >
+                {{ darkMode ? 'Mode Clar' : 'Mode Fosc' }}
+            </button>
+
+             <button
+              type="button"
+              class="btn btn-success ml-2"
+              @click="compartirHorari"
+            >
+              <i class="fa-solid fa-share-alt"></i> Compartir
+            </button>
+
+            <i class="fa-solid fa-share-from-square fa-2x" style="color:black"></i>
+            <a href="llistar_horaris.html">
+                <button type="button" class="btn btn-primary" style="position: absolute; right: 0;">
+                    <i class="fa-solid fa-arrow-left fa-2x"></i> Tornar
+                </button>
+            </a>
+            <br />
+        </form>
+    </div>
+
+    <div id="taula2" style="width: 100%;">
+        <table class="table table-condensed table-bordered table-hover" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Hora</th>
+                    <th v-for="dia in dies_setmana" :key="dia">{{ dia }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(hora, horaIndex) in llista_hores" :key="hora">
+                    <td>{{ hora }}</td>
+                    <td v-for="(dia, diaIndex) in dies_setmana" 
+                        :key="dia+hora"
+                        :rowspan="obtenirRowspan(dia, hora)"
+                        :class="{ 'cella-oculta': !esPrimeraHoraFranja(dia, hora) }"
+                        :style="{ 'background-color': obtenirColor(dia, hora) }">
+                        <div class="franja-horaria" v-if="obtenirFranja(dia, hora)">
+                            <span class="assignatura-nom">{{ obtenirFranja(dia, hora).assignatura }}</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    </div>
+
+  
+</body>
+</html>
